@@ -8,18 +8,6 @@ import binascii
 from decimal import *
 import string
 
-"""Fragment an HTTP request over multiple MPTCP flows to demonstrate the potential for trivial IDS evasion.
-
-No params or -h for help.
-
-Example usage:
-# python myids.py -n 5 --file payload.txt 192.168.249.128 --port 6004
-# python myids.py -n 2 --file payload.txt 192.168.249.128 --port 6004 -data_sublow 2
-
-Default number of flows is 5, and the request is split evenly over all flows.
-
-"""
-
 #TODO: Add port randomisation (with availability checking)
 #TODO: Speed up opening flows (faster polling - or an option to set delay?)
 def core(target, tgt_port, src_ip, nsubflows, first_src_port, payloadFile, randomSrcPorts, datasubflow):
@@ -171,17 +159,6 @@ def core(target, tgt_port, src_ip, nsubflows, first_src_port, payloadFile, rando
           sys.exit(1)
 
 
-
-        #This acks data on every subflow 20 times
-        #TODO: Abstract this into a function
-        #for i in range(1, 5):
-        #    j = 0
-        #    for sflow in s.sub:
-        #        #print "Subflow ", j, " cycling..."
-        #        ackDss=[m.DSSACK]
-        #        t.sendSequence(ackDss, initstate=s, sub=sflow,waitAck=True, timeout=timeout)
-        #        j += 1
-            #print " ------- Heartbeat Number", str(i)
 
         j = 0
         for sflow in s.sub:
